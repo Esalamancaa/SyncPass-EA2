@@ -8,12 +8,11 @@ import java.time.LocalDateTime
 data class Evento (
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val proyecto: Proyecto,
+    val proyectoId: Int,
     val nombre: String,
     val fecha: LocalDateTime,
     val cupos: Int,
     val direccion: String,
     val gpsLatitud: Double,
     val gpsLongitud: Double
-
 )
