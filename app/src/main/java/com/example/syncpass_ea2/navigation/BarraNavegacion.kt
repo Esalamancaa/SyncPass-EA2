@@ -8,8 +8,11 @@ import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemColors
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 
 private data class ItemNavbar(
@@ -23,11 +26,12 @@ fun BarraNavegacion(navController: NavController, rutaActual: String) {
     val items = listOf(
         ItemNavbar("PantallaHome", "Inicio", Icons.Filled.Home),
         ItemNavbar("PantallaRegistros", "Registro", Icons.Filled.Event),
-        ItemNavbar("PantallaCamara", "Cámara", Icons.Filled.PhotoCamera),
-        ItemNavbar("Encuesta", "Encuesta", Icons.Filled.People)
+        ItemNavbar("PantallaCamara", "Cámara", Icons.Filled.PhotoCamera)
     )
 
-    NavigationBar {
+    NavigationBar (
+        containerColor = Color(0xFF2B88C4)
+    ){
         items.forEach { item ->
             NavigationBarItem(
                 selected = rutaActual == item.ruta,
@@ -48,7 +52,14 @@ fun BarraNavegacion(navController: NavController, rutaActual: String) {
                         contentDescription = item.titulo
                     )
                 },
-                label = { Text(item.titulo) }
+                label = { Text(item.titulo) },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = Color.Black,
+                    unselectedIconColor = Color.White,
+                    selectedTextColor = Color.White,
+                    unselectedTextColor = Color.White,
+                    indicatorColor = Color.White
+                )
             )
         }
     }

@@ -3,6 +3,7 @@ package com.example.syncpass_ea2.navigation
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,70 +40,88 @@ fun AppNavigation() {
         "Encuesta"
     )
 
-    Scaffold(
-        bottomBar = {
-            if (mostrarNavbar) {
-                BarraNavegacion(
-                    navController = navController,
-                    rutaActual = rutaActual.orEmpty()
-                )
-            }
+    val context = LocalContext.current
+    val administradorSesion = remember { AdministradorSesion(context) }
+    var rutaInicial by remember { mutableStateOf<String?>(null) }
+
+
+
+    LaunchedEffect(Unit) {
+        rutaInicial = if (administradorSesion.haySesionActiva()){
+            "PantallaHome"
+        }else{
+            "InicioSesion"
         }
-    ) { paddingValues ->
+    }
 
-        NavHost(
-            navController = navController,
-            startDestination = "InicioSesion",
-            modifier = Modifier.padding(paddingValues)
-        ) {
-            composable("InicioSesion") {
-                val context = LocalContext.current
-                val database = AppDataBase.obtenerBaseDeDatos(context)
+    val destino: String? = rutaInicial
 
-                pantallaLogin(
-                    navController = navController,
-                    usuarioDao = database.usuarioDao()
-                )
+    if(destino != null) {
+        Scaffold(
+            bottomBar = {
+                if (mostrarNavbar) {
+                    BarraNavegacion(
+                        navController = navController,
+                        rutaActual = rutaActual.orEmpty()
+                    )
+                }
             }
+        ) { paddingValues ->
 
-            composable("PantallaHome") {
-                pantallaHome(navController = navController)
-            }
+            NavHost(
+                navController = navController,
+                startDestination = destino,
+                modifier = Modifier.padding(paddingValues)
+            ) {
+                composable("InicioSesion") {
+                    val context = LocalContext.current
+                    val database = AppDataBase.obtenerBaseDeDatos(context)
 
-            composable("FormularioEventos") {
-                formularioEvento(navController)
-            }
+                    pantallaLogin(
+                        navController = navController,
+                        usuarioDao = database.usuarioDao()
+                    )
+                }
 
-            composable("PantallaCamara") {
-                pantallaCamara()
-            }
+                composable("PantallaHome") {
+                    pantallaHome(navController = navController)
+                }
 
-            composable("FormularioAsistentes") {
-                FormularioAsistentes()
-            }
+                composable("FormularioEventos") {
+                    formularioEvento(navController)
+                }
 
-            composable ("FormularioProyectos"){
-                formularioProyectos(navController)
-            }
+                composable("PantallaCamara") {
+                    pantallaCamara()
+                }
 
-            composable("PantallaRegistros") {
-                PantallaRegistros(navController)
-            }
+                composable("FormularioAsistentes") {
+                    FormularioAsistentes(navController)
+                }
 
-            composable("Proximamente") {
-                Proximamente(navController)
-            }
+                composable("FormularioProyectos") {
+                    formularioProyectos(navController)
+                }
 
-            composable(route = "Encuesta") {
-                var valoracionActual by remember { mutableStateOf(0) }
+                composable("PantallaRegistros") {
+                    PantallaRegistros(navController)
+                }
 
-                Encuesta(
-                    navController = navController,
-                    valoracion = valoracionActual,
-                    onCambioValoracion = { nuevaValoracion ->
-                        valoracionActual = nuevaValoracion
-                    }
-                )
+                composable("Proximamente") {
+                    Proximamente(navController)
+                }
+
+                composable(route = "Encuesta") {
+                    var valoracionActual by remember { mutableStateOf(0) }
+
+                    Encuesta(
+                        navController = navController,
+                        valoracion = valoracionActual,
+                        onCambioValoracion = { nuevaValoracion ->
+                            valoracionActual = nuevaValoracion
+                        }
+                    )
+                }
             }
         }
     }

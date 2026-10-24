@@ -35,6 +35,8 @@ import kotlinx.coroutines.launch
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.ui.platform.LocalContext
+import com.example.syncpass_ea2.navigation.AdministradorSesion
 
 @Composable
 fun pantallaLogin(navController: NavController, usuarioDao: UsuarioDao) {
@@ -42,6 +44,9 @@ fun pantallaLogin(navController: NavController, usuarioDao: UsuarioDao) {
     var password by remember { mutableStateOf("") }
     var mensajeError by remember { mutableStateOf<String?>(null) }
     val coroutineScope = rememberCoroutineScope()
+
+    val context = LocalContext.current
+    val administradorSesion = remember { AdministradorSesion(context) }
 
     Column(
         modifier = Modifier
@@ -62,7 +67,7 @@ fun pantallaLogin(navController: NavController, usuarioDao: UsuarioDao) {
         OutlinedTextField(
             value = correo,
             onValueChange = { correo = it },
-            label = { Text("Correo", fontSize = 20.sp) },
+            label = { Text("Correo", fontSize = 20.sp, color = Color.Black) },
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier
                 .size(width = 300.dp, height = 70.dp)
@@ -77,7 +82,7 @@ fun pantallaLogin(navController: NavController, usuarioDao: UsuarioDao) {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Contraseña", fontSize = 20.sp) },
+            label = { Text("Contraseña", fontSize = 20.sp, color = Color.Black) },
             shape = RoundedCornerShape(20.dp),
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
@@ -91,7 +96,6 @@ fun pantallaLogin(navController: NavController, usuarioDao: UsuarioDao) {
             )
         )
 
-        // Mostrar el mensaje de error si existe
         if (mensajeError != null) {
             Text(
                 text = mensajeError!!,
@@ -115,8 +119,9 @@ fun pantallaLogin(navController: NavController, usuarioDao: UsuarioDao) {
 
                     if (usuarioValido != null) {
                         mensajeError = null
+                        administradorSesion.guardarSesion()
                         navController.navigate("PantallaHome") {
-                            popUpTo("pantallaLogin") { inclusive = true }
+                            popUpTo("InicioSesion") { inclusive = true }
                         }
                     } else {
                         mensajeError = "Correo o contraseña inválido"
