@@ -1,4 +1,4 @@
-package com.example.syncpass_ea2.ui.theme.screens
+package com.example.syncpass_ea2.screens
 
 import androidx.compose.runtime.Composable
 

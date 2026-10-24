@@ -1,4 +1,4 @@
-package com.example.syncpass_ea2.ui.theme.screens
+package com.example.syncpass_ea2.screens
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -19,11 +19,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.compose.LocalLifecycleOwner
 
 @Composable
 fun pantallaCamara(){
     val context = LocalContext.current
-    val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     var tienePermiso by remember {
         mutableStateOf(

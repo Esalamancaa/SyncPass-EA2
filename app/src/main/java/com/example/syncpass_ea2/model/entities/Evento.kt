@@ -11,6 +11,7 @@ data class Evento (
     val proyectoId: Int,
     val nombre: String,
     val fecha: LocalDateTime,
+    val hora: LocalDateTime,
     val cupos: Int,
     val direccion: String,
     val gpsLatitud: Double,

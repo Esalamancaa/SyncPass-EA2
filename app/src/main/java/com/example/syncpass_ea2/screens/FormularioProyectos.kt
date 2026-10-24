@@ -1,4 +1,4 @@
-package com.example.syncpass_ea2.ui.theme.screens
+package com.example.syncpass_ea2.screens
 
 import android.widget.Space
 import androidx.compose.foundation.clickable
@@ -8,9 +8,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
@@ -20,6 +25,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
@@ -30,7 +36,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.syncpass_ea2.model.database.AppDataBase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -41,7 +51,7 @@ import java.util.TimeZone
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun formularioProyectos(){
+fun formularioProyectos(navController: NavController){
 
 
     var titulo by remember() { mutableStateOf("") }
@@ -115,16 +125,28 @@ fun formularioProyectos(){
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = {Text("REGISTRO DE PROYECTO")}
+                title = {
+                    Text(
+                        "NUEVO PROYECTO",
+                        color = Color.White,
+                        fontSize = 35.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = Color(0xFF2B88C4)
+                )
             )
-
         }
     ) {innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)
                 .padding(20.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+                .imePadding()
+            ,
             verticalArrangement = Arrangement.spacedBy(18.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -169,7 +191,16 @@ fun formularioProyectos(){
 
             Spacer(modifier = Modifier.height(10.dp))
 
-
+            Button(
+                onClick = { navController.navigate(route = "Proximamente") },
+                modifier = Modifier.size(width = 250.dp, height = 50.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF2B88C4),
+                    contentColor = Color.White
+                )
+            ){
+                Text("Registrar")
+            }
         }
     }
 }

@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AsistenteDao{
     @Insert
-    suspend fun insertarEvento(proyectoEntity: Asistente)
+    suspend fun insertarAsistente(asistente: Asistente)
 
-    @Query("SELECT * FROM proyectos")
-    fun obtenerProyectos(): Flow<List<Asistente>>
+    @Query("SELECT * FROM asistentes")
+    fun obtenerAsistentes(): Flow<List<Asistente>>
 }

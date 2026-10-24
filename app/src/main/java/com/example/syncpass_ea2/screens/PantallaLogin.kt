@@ -1,4 +1,4 @@
-package com.example.syncpass_ea2.ui.theme.screens
+package com.example.syncpass_ea2.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -32,6 +32,9 @@ import androidx.navigation.NavController
 import com.example.syncpass_ea2.R
 import com.example.syncpass_ea2.model.dao.UsuarioDao
 import kotlinx.coroutines.launch
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.imePadding
 
 @Composable
 fun pantallaLogin(navController: NavController, usuarioDao: UsuarioDao) {
@@ -41,7 +44,11 @@ fun pantallaLogin(navController: NavController, usuarioDao: UsuarioDao) {
     val coroutineScope = rememberCoroutineScope()
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .imePadding()
+            .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

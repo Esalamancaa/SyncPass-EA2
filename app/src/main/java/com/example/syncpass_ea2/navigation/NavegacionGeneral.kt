@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
@@ -11,7 +13,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.syncpass_ea2.model.database.AppDataBase
-import com.example.syncpass_ea2.ui.theme.screens.*
+import androidx.compose.runtime.setValue
+import com.example.syncpass_ea2.screens.Encuesta
+import com.example.syncpass_ea2.screens.FormularioAsistentes
+import com.example.syncpass_ea2.screens.PantallaRegistros
+import com.example.syncpass_ea2.screens.Proximamente
+import com.example.syncpass_ea2.screens.formularioEvento
+import com.example.syncpass_ea2.screens.formularioProyectos
+import com.example.syncpass_ea2.screens.pantallaCamara
+import com.example.syncpass_ea2.screens.pantallaHome
+import com.example.syncpass_ea2.screens.pantallaLogin
 
 @Composable
 fun AppNavigation() {
@@ -23,7 +34,9 @@ fun AppNavigation() {
         "PantallaHome",
         "FormularioEventos",
         "PantallaCamara",
-        "FormularioAsistentes"
+        "FormularioAsistentes",
+        "PantallaRegistros",
+        "Encuesta"
     )
 
     Scaffold(
@@ -57,7 +70,7 @@ fun AppNavigation() {
             }
 
             composable("FormularioEventos") {
-                formularioEvento()
+                formularioEvento(navController)
             }
 
             composable("PantallaCamara") {
@@ -66,6 +79,30 @@ fun AppNavigation() {
 
             composable("FormularioAsistentes") {
                 FormularioAsistentes()
+            }
+
+            composable ("FormularioProyectos"){
+                formularioProyectos(navController)
+            }
+
+            composable("PantallaRegistros") {
+                PantallaRegistros(navController)
+            }
+
+            composable("Proximamente") {
+                Proximamente(navController)
+            }
+
+            composable(route = "Encuesta") {
+                var valoracionActual by remember { mutableStateOf(0) }
+
+                Encuesta(
+                    navController = navController,
+                    valoracion = valoracionActual,
+                    onCambioValoracion = { nuevaValoracion ->
+                        valoracionActual = nuevaValoracion
+                    }
+                )
             }
         }
     }

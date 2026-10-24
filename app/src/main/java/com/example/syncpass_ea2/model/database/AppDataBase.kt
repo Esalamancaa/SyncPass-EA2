@@ -6,20 +6,23 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.syncpass_ea2.model.dao.AsistenteDao
 import com.example.syncpass_ea2.model.dao.EventoDao
 import com.example.syncpass_ea2.model.dao.ProyectoDao
 import com.example.syncpass_ea2.model.dao.UsuarioDao
+import com.example.syncpass_ea2.model.entities.Asistente
 import com.example.syncpass_ea2.model.entities.Evento
 import com.example.syncpass_ea2.model.entities.Proyecto
 import com.example.syncpass_ea2.model.entities.Usuario
 
-@Database(entities = [Proyecto::class, Evento::class, Usuario::class], version = 1)
+@Database(entities = [Proyecto::class, Evento::class, Usuario::class, Asistente::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun proyectoDao(): ProyectoDao
     abstract fun eventoDao(): EventoDao
     abstract fun usuarioDao(): UsuarioDao
+    abstract fun asistenteDao(): AsistenteDao
 
     companion object {
         @Volatile

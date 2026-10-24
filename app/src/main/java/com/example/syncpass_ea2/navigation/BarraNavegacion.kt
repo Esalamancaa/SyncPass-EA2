@@ -22,9 +22,9 @@ private data class ItemNavbar(
 fun BarraNavegacion(navController: NavController, rutaActual: String) {
     val items = listOf(
         ItemNavbar("PantallaHome", "Inicio", Icons.Filled.Home),
-        ItemNavbar("FormularioEventos", "Registro", Icons.Filled.Event),
+        ItemNavbar("PantallaRegistros", "Registro", Icons.Filled.Event),
         ItemNavbar("PantallaCamara", "Cámara", Icons.Filled.PhotoCamera),
-        ItemNavbar("FormularioAsistentes", "Asistentes", Icons.Filled.People)
+        ItemNavbar("Encuesta", "Encuesta", Icons.Filled.People)
     )
 
     NavigationBar {
