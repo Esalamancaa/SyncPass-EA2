@@ -118,13 +118,25 @@ fun pantallaLogin(navController: NavController, usuarioDao: UsuarioDao) {
                     val usuarioValido = usuarioDao.login(correo, password)
 
                     if (usuarioValido != null) {
-                        mensajeError = null
-                        administradorSesion.guardarSesion()
-                        navController.navigate("PantallaHome") {
-                            popUpTo("InicioSesion") { inclusive = true }
+                        val destino = when (usuarioValido.tipoUsuario) {
+                            "Coordinador" -> "HomeCoordinador"
+                            "Monitor" -> "HomeMonitor"
+                            "Asistente" -> "HomeAsistente"
+                            else -> null
+                        }
+
+                        if (destino != null) {
+                            administradorSesion.guardarSesion(usuarioValido.nombre, usuarioValido.tipoUsuario)
+                            navController.navigate(destino) {
+                                popUpTo("InicioSesion") {
+                                    inclusive = true
+                                }
+                            }
+                        } else {
+                            mensajeError = "Tipo de usuario desconocido"
                         }
                     } else {
-                        mensajeError = "Correo o contraseña inválido"
+                        mensajeError = "Correo o contraseña incorrectos"
                     }
                 }
             },
@@ -136,6 +148,25 @@ fun pantallaLogin(navController: NavController, usuarioDao: UsuarioDao) {
         ) {
             Text(
                 "Iniciar Sesión",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+
+        Spacer(modifier = Modifier.height(15.dp))
+
+        Button(
+            onClick = {
+                navController.navigate("PantallaRegistro")
+            },
+            modifier = Modifier.size(width = 250.dp, height = 50.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.White,
+                contentColor = Color.Black,
+            )
+        ) {
+            Text(
+                "Registrarse",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )

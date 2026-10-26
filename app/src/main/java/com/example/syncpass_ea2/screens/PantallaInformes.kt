@@ -2,30 +2,49 @@ package com.example.syncpass_ea2.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddBox
+import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Event
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PhotoCamera
-import androidx.compose.material3.*
+import androidx.compose.material.icons.filled.Queue
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun pantallaHome(navController: NavController) {
+fun PantallaInformes(navController : NavController){
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        "HOME",
+                        "INFORMES",
                         color = Color.White,
                         fontSize = 35.sp,
                         fontWeight = FontWeight.Bold
@@ -44,30 +63,13 @@ fun pantallaHome(navController: NavController) {
         ) {
             Spacer(modifier = Modifier.height(25.dp))
 
-            Text(
-                text = "BIENVENIDO A SYNCPASS,",
-                modifier = Modifier.fillMaxWidth(),
-                color = Color.Black,
-                fontSize = 45.sp,
-                textAlign = TextAlign.Center
-            )
-            Text(
-                text = "USUARIO",
-                modifier = Modifier.fillMaxWidth(),
-                color = Color(0xFF2B88C4),
-                fontSize = 45.sp,
-                textAlign = TextAlign.Center
-            )
-
-            Spacer(modifier = Modifier.height(15.dp))
-
             Card(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .width(400.dp)
                     .height(150.dp)
                     .clickable {
-                        navController.navigate("PantallaCamara")
+                        navController.navigate("Proximamente")
                     },
                 colors = CardDefaults.cardColors(containerColor = Color.LightGray),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
@@ -79,12 +81,12 @@ fun pantallaHome(navController: NavController) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        imageVector = Icons.Filled.PhotoCamera,
-                        contentDescription = "Pantalla de Camara",
+                        imageVector = Icons.Filled.Bookmark,
+                        contentDescription = "Revisión de informes",
                         modifier = Modifier.size(30.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "CONFIRMAR ASISTENTE", fontSize = 25.sp)
+                    Text(text = "REVISAR INFORMES", fontSize = 25.sp)
                 }
             }
 
@@ -96,7 +98,7 @@ fun pantallaHome(navController: NavController) {
                     .width(400.dp)
                     .height(150.dp)
                     .clickable {
-                        navController.navigate("FormularioAsistentes")
+                        navController.navigate("Proximamente")
                     },
                 colors = CardDefaults.cardColors(containerColor = Color.LightGray),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
@@ -108,12 +110,12 @@ fun pantallaHome(navController: NavController) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        imageVector = Icons.Filled.Create,
-                        contentDescription = "Registro de Asistentes",
+                        imageVector = Icons.Filled.Event,
+                        contentDescription = "Nuevo Informe",
                         modifier = Modifier.size(30.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "REGISTRAR ASISTENTE", fontSize = 25.sp)
+                    Text(text = "INGRESAR INFORME", fontSize = 25.sp)
                 }
             }
         }

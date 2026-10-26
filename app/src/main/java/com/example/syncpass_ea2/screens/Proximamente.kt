@@ -27,7 +27,10 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Proximamente(navController: NavController) {
+fun Proximamente(
+    navController: NavController,
+    rutaHome: String
+) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -49,7 +52,7 @@ fun Proximamente(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
-            Arrangement.Center,
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(25.dp))
@@ -61,6 +64,7 @@ fun Proximamente(navController: NavController) {
                 fontSize = 45.sp,
                 textAlign = TextAlign.Center
             )
+
             Text(
                 text = "Será accesible en la siguiente entrega",
                 modifier = Modifier.fillMaxWidth(),
@@ -72,13 +76,23 @@ fun Proximamente(navController: NavController) {
             Spacer(modifier = Modifier.height(15.dp))
 
             Button(
-                onClick = { navController.navigate(route = "PantallaHome") },
-                modifier = Modifier.size(width = 250.dp, height = 50.dp),
+                onClick = {
+                    navController.navigate(rutaHome) {
+                        popUpTo(rutaHome) {
+                            inclusive = false
+                        }
+                        launchSingleTop = true
+                    }
+                },
+                modifier = Modifier.size(
+                    width = 250.dp,
+                    height = 50.dp
+                ),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF2B88C4),
                     contentColor = Color.White
                 )
-            ){
+            ) {
                 Text("Inicio")
             }
         }

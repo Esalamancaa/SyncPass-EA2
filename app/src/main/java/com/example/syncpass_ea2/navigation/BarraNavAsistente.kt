@@ -3,35 +3,37 @@ package com.example.syncpass_ea2.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 
-private data class ItemNavbar(
+private data class ItemNavbarAsistente(
     val ruta: String,
     val titulo: String,
     val icono: androidx.compose.ui.graphics.vector.ImageVector
 )
 
 @Composable
-fun BarraNavegacion(navController: NavController, rutaActual: String) {
+fun BarraNavAsistente(
+    navController: NavController,
+    rutaActual: String,
+    rutaHome: String
+) {
     val items = listOf(
-        ItemNavbar("PantallaHome", "Inicio", Icons.Filled.Home),
-        ItemNavbar("PantallaRegistros", "Registro", Icons.Filled.Event),
-        ItemNavbar("PantallaCamara", "Cámara", Icons.Filled.PhotoCamera)
+        ItemNavbarAsistente(rutaHome, "Inicio", Icons.Filled.Home),
+        ItemNavbarAsistente("PantallaRegistros", "Registro", Icons.Filled.Event),
+        ItemNavbarAsistente("PantallaCamara", "Cámara", Icons.Filled.PhotoCamera)
     )
 
-    NavigationBar (
+    NavigationBar(
         containerColor = Color(0xFF2B88C4)
-    ){
+    ) {
         items.forEach { item ->
             NavigationBarItem(
                 selected = rutaActual == item.ruta,
@@ -40,7 +42,7 @@ fun BarraNavegacion(navController: NavController, rutaActual: String) {
                         navController.navigate(item.ruta) {
                             launchSingleTop = true
                             restoreState = true
-                            popUpTo("PantallaHome") {
+                            popUpTo(rutaHome) {
                                 saveState = true
                             }
                         }

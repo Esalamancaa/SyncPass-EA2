@@ -42,8 +42,8 @@ abstract class AppDataBase : RoomDatabase() {
 
                             db.execSQL(
                                 """
-                                INSERT INTO usuarios (correo, password)
-                                VALUES ('admin@syncpass.cl', 'SyncPass123')
+                                INSERT INTO usuarios (nombre, correo, tipoUsuario, password)
+                                VALUES ('Administrador','admin@syncpass.cl','Coordinador','SyncPass123')
                                 """.trimIndent()
                             )
                         }
